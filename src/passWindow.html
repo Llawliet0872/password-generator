@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>History</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    </head>
+    <body>
+        <h6>
+        </h6>
+        <!-- <div id="button-div">
+            <!-- <button id="clearButton" class="waves-effect waves-light btn-small red" onclick="clearContent()">Clear</button> -->
+        <!--</div> -->
+
+        <script>
+            const electron = require("electron");
+            const {ipcRenderer} = electron;
+            const fs = require('fs');
+            const lineReader = require("line-reader");
+            const h6 = document.querySelector("h6");
+
+            function clearContent(){
+                fs.writeFile("passwords.txt", "", function(error){
+                    if(error){
+                        throw error;
+                    }
+                    h6.innerHTML = "";
+                    document.getElementById("clearButton").style.visibility = "hidden";
+                });
+            }
+
+            ipcRenderer.on("clear", function(){
+                fs.writeFile("passwords.txt", "", function(error){
+                    if(error){
+                        throw error;
+                    }
+                    h6.innerHTML = "";
+                    document.getElementById("clearButton").style.visibility = "hidden";
+                });
+            });
+
+            fs.readFile("passwords.txt", (err, password) =>{
+                if(err){
+                    throw err;
+                }      
+                    h6.innerHTML = password.toString().replaceAll("\n", "<hr>");
+            });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <style>
+            body{
+                background-color: rgb(228, 228, 228);
+            }
+            h6{
+                text-align: center;
+                word-break: break-all;
+            }
+            #button-div{
+                text-align: center;
+                margin-top: 10px;
+                margin-bottom: 15px;            
+            }
+
+        </style>
+
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert</title>
+</head>
+<body>
+    <h5>The length you have chosen is too short!</h5>
+    <button class="btn-floating btn-large waves-effect waves-light red" onclick="sendMessage()">OK</button>
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        function sendMessage(){
+            ipcRenderer.send("closeAlert");
+        }
+    </script>
+
+    <style>
+        *{
+            background-color: rgb(228, 228, 228);
+            user-select: none;
+            text-align: center;
+            margin-top: 50px; 
+        }
+    </style>
+
+</body>
+</html>
