@@ -103,8 +103,9 @@
                         document.getElementById("password").className = "password";
                 }
             }
-            fs.appendFile("C:/PasswordGenerator/passwords.txt", password + " on " + date + " | " + hour + ":" + minute + "\n", (error) => {
-                if(error){
+            <!-- fs.appendFile("C:/PasswordGenerator/passwords.txt", password + " on " + date + " | " + hour + ":" + minute + "\n", function(error)   for windows -->
+            fs.appendFile("passwords.txt", password + " on " + date + " | " + hour + ":" + minute + "\n", function(error){
+				if(error){
                     throw err;
                 }
             });

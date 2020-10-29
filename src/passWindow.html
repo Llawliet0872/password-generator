@@ -21,7 +21,8 @@
             const h6 = document.querySelector("h6");
 
             ipcRenderer.on("clear", function(){
-                fs.writeFile("C:/PasswordGenerator/passwords.txt", "", function(error){
+                <!-- fs.writeFile("C:/PasswordGenerator/passwords.txt", "", function(error) for windows -->
+				fs.writeFile("passwords.txt", "", function(error){
                     if(error){
                         throw error;
                     }
@@ -29,7 +30,8 @@
                 });
             });
 
-            fs.readFile("C:/PasswordGenerator/passwords.txt", function(err, password){
+            <!-- fs.readFile("C:/PasswordGenerator/passwords.txt", function(err, password) for windows -->
+			fs.readFile("passwords.txt", function(err, password){
                 if(err){
                     throw err;
                 }      
