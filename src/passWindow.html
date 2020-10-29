@@ -20,27 +20,16 @@
             const lineReader = require("line-reader");
             const h6 = document.querySelector("h6");
 
-            function clearContent(){
-                fs.writeFile("passwords.txt", "", function(error){
-                    if(error){
-                        throw error;
-                    }
-                    h6.innerHTML = "";
-                    document.getElementById("clearButton").style.visibility = "hidden";
-                });
-            }
-
             ipcRenderer.on("clear", function(){
-                fs.writeFile("passwords.txt", "", function(error){
+                fs.writeFile("C:/PasswordGenerator/passwords.txt", "", function(error){
                     if(error){
                         throw error;
                     }
                     h6.innerHTML = "";
-                    document.getElementById("clearButton").style.visibility = "hidden";
                 });
             });
 
-            fs.readFile("passwords.txt", (err, password) =>{
+            fs.readFile("C:/PasswordGenerator/passwords.txt", function(err, password){
                 if(err){
                     throw err;
                 }      
@@ -57,6 +46,25 @@
                 text-align: center;
                 word-break: break-all;
             }
+			
+			
+			::-webkit-scrollbar {
+			  width: 5px;
+			}
+
+			::-webkit-scrollbar-track {
+			  background: #f1f1f1;
+			}
+
+			::-webkit-scrollbar-thumb {
+			  background: #888;
+			  border-radius: 50px;
+			}
+			
+			::-webkit-scrollbar-thumb:hover {
+			  background: #555;
+			}
+			
             #button-div{
                 text-align: center;
                 margin-top: 10px;
