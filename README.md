@@ -1,9 +1,8 @@
 # password-generator 
 # Description
 This password generator is done using electron js. It has a history feature which shows every password generated with the exact time and date. The history can be 
-cleared. For the source code and the executable, you can just clone it or for the executable you can download the password-generator.7z. This file contains only the 
-Windows .exe file. The Linux and MacOS files are not added yet. 
-## NOTE: Do not extract the 7zip file in the 'C' drive for windows users as the history feature wont work. In case it is in the 'C' drive, administrator permissions will be needed for the .exe file to get all the features. 
+cleared. For the source code and the executable, you can just clone it or for the executable you can download the password-generator.7z for windows and linux. The MacOS files are not added yet. 
+## NOTE: Do not extract the 7zip file to the 'C' drive for windows users as the history feature wont work. In case it is in the 'C' drive, administrator permissions will be needed for the .exe file to get all the features. 
 
 # Screenshots
 ![screenshot](https://user-images.githubusercontent.com/63499687/96692596-d8090980-13a3-11eb-8d50-3ea5e0581f52.png)
