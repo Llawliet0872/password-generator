@@ -1,192 +1,192 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Password Generator</title>
-    <meta charset="UTF-8" />
-    <title>Password Generator </title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-</head>
+    <head>
+        <title>Password Generator</title>
+        <meta charset="UTF-8" />
+        <title>Password Generator </title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    </head>
 
-<body>
-    <nav style="user-select: none;">
-        <div class="nav-wrapper">
-          <a class="brand-logo center" >Password Generator</a>
-          <ul id="nav-mobile" class="right">
-            <li><a onclick="sendShowPass()"><i class="large material-icons">history</i></a></li>
-            <li><a onclick="changeColor()"><i class="large material-icons">invert_colors</i></a></li>
-            <li><a href="help.html"><i class="large material-icons">live_help</i></a></li>
-          </ul>
-          <ul class="left">
-            <li><a class="btn-floating btn-large waves-effect waves-light red" onclick="openLink()"><i class="fa fa-github black"></i> Sign in with github</a></li>  
-          </ul>
+    <body>
+        <nav style="user-select: none;">
+            <div class="nav-wrapper">
+            <a class="brand-logo center" >Password Generator</a>
+            <ul id="nav-mobile" class="right">
+                <li><a onclick="sendShowPass()"><i class="large material-icons">history</i></a></li>
+                <li><a onclick="changeColor()"><i class="large material-icons">invert_colors</i></a></li>
+                <li><a href="help.html"><i class="large material-icons">live_help</i></a></li>
+            </ul>
+            <ul class="left">
+                <li><a class="btn-floating btn-large waves-effect waves-light red" onclick="openLink()"><i class="fa fa-github black"></i> Sign in with github</a></li>  
+            </ul>
+            </div>
+        </nav>
+        <div class="input-field col s6" id="lenDiv">
+            <input type="text" id="length"/>
+            <label>Length of password</label>
         </div>
-      </nav>
-    <div class="input-field col s6" id="lenDiv">
-        <input type="text" id="length"/>
-        <label>Length of password</label>
-    </div>
 
-    <div id="generateDiv">
-        <button type="submit" class="btn waves-effect waves-light" onclick="generate()">Generate</button>
-    </div>
+        <div id="generateDiv">
+            <button type="submit" class="btn waves-effect waves-light" onclick="generate()">Generate</button>
+        </div>
 
-    <div id="pass-div">
-        <p id="password"></p>
-    </div>
-    
-
-    <script>
-        const electron = require('electron');
-        const {ipcRenderer} = electron;
-        const {shell} = require('electron');
-        const fs = require('fs');
-
-        function updateTime(){
-            var d = new Date();
-            var minute = d.getMinutes();
-            var hour = d.getHours()
-            var date = d.getDate() + "/" + (d.getMonth()+1); 
-        }
-
-        function sendShowPass(){
-            ipcRenderer.send("showPass");
-            console.log("done");
-        }
-
-        function sendShort(){
-            ipcRenderer.send("short");
-        }
-
-        function changeColor(){
-            if(document.body.style.color == "white"){
-                document.body.style.color = "black";
-                document.body.style.backgroundColor = "rgb(228, 228, 228)";
-                document.getElementById("password").style.backgroundColor = "#f0f0f0";
-                document.getElementById("length").style.color = "black";
-            }
-            else{
-                document.body.style.color = "white";
-                document.body.style.backgroundColor = "#262626";
-                document.getElementById("length").style.color = "white";
-                document.getElementById("password").style.backgroundColor = "#404040";
-            }
-        }
-
-        function openLink(){
-            shell.openExternal('https://github.com/Llawliet0872/password-generator');
-        }
-		
-		fs.mkdir("C:/PasswordGenerator", function(err){
-			if(err){
-				throw(err);
-			}
-		});
+        <div id="pass-div">
+            <p id="password"></p>
+        </div>
         
-        function generate() {
-            var d = new Date();
-            var minute = d.getMinutes();
-            var hour = d.getHours()
-            var date = d.getDate() + "/" + (d.getMonth()+1); 
-            var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*)(_+=/-:;`~.,*";
-            var length = document.getElementById("length").value;
-            if(length < 6){
-                sendShort();
+
+        <script>
+            const electron = require('electron');
+            const {ipcRenderer} = electron;
+            const {shell} = require('electron');
+            const fs = require('fs');
+
+            function updateTime(){
+                var d = new Date();
+                var minute = d.getMinutes();
+                var hour = d.getHours()
+                var date = d.getDate() + "/" + (d.getMonth()+1); 
             }
-            else{
-                var password = "";
-                    for (var i = 0, n = charset.length; i < length; i++){
-                        password = password + charset.charAt(Math.floor(Math.random() * n));
-                        document.getElementById("password").innerHTML = password; 
-                        document.getElementById("password").className = "password";
+
+            function sendShowPass(){
+                ipcRenderer.send("showPass");
+                console.log("done");
+            }
+
+            function sendShort(){
+                ipcRenderer.send("short");
+            }
+
+            function changeColor(){
+                if(document.body.style.color == "white"){
+                    document.body.style.color = "black";
+                    document.body.style.backgroundColor = "rgb(228, 228, 228)";
+                    document.getElementById("password").style.backgroundColor = "#f0f0f0";
+                    document.getElementById("length").style.color = "black";
+                }
+                else{
+                    document.body.style.color = "white";
+                    document.body.style.backgroundColor = "#262626";
+                    document.getElementById("length").style.color = "white";
+                    document.getElementById("password").style.backgroundColor = "#404040";
                 }
             }
-            <!-- fs.appendFile("C:/PasswordGenerator/passwords.txt", password + " on " + date + " | " + hour + ":" + minute + "\n", function(error)   for windows -->
-            fs.appendFile("passwords.txt", password + " on " + date + " | " + hour + ":" + minute + "\n", function(error){
-				if(error){
-                    throw err;
+
+            function openLink(){
+                shell.openExternal("https://github.com/Llawliet0872/password-generator");
+            }
+            
+            fs.mkdir("C:/PasswordGenerator", function(err){
+                if(err){
+                    throw(err);
                 }
             });
+            
+            function generate() {
+                var d = new Date();
+                var minute = d.getMinutes();
+                var hour = d.getHours()
+                var date = d.getDate() + "/" + (d.getMonth()+1); 
+                var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*)(_+=/-:;`~.,*";
+                var length = document.getElementById("length").value;
+                if(length < 6){
+                    sendShort();
+                }
+                else{
+                    var password = "";
+                        for (var i = 0, n = charset.length; i < length; i++){
+                            password = password + charset.charAt(Math.floor(Math.random() * n));
+                            document.getElementById("password").innerHTML = password; 
+                            document.getElementById("password").className = "password";
+                    }
+                }
+                // fs.appendFile("C:/PasswordGenerator/passwords.txt", password + " on " + date + " | " + hour + ":" + minute + "\n", function(error) for windows 
+                fs.appendFile("passwords.txt", password + " on " + date + " | " + hour + ":" + minute + "\n", function(error){
+                    if(error){
+                        throw err;
+                    }
+                });
 
-        }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <style>
-        body{
-            color: black;
-            background-color: rgb(228, 228, 228);
-            text-align: center;
-            /* animation-name: fadeIn;
-            animation-duration: 2s; */
-        }
-
-        #length{
-            text-align: center;
-        }
-
-		::-webkit-scrollbar {
-		  width: 5px;
-		}
-
-		::-webkit-scrollbar-track {
-		  background: #f1f1f1;
-		}
-
-		::-webkit-scrollbar-thumb {
-		  background: #888;
-		  border-radius: 50px;
-		}
-		
-		::-webkit-scrollbar-thumb:hover {
-		  background: #555;
-		}
-
-        #lenDiv{
-            text-align: center;
-            margin-left: 15px;
-            margin-right: 30px;
-            margin-top: 20px;
-        }
-
-        #generateDiv{
-            user-select: none;
-            text-align: center;
-        }
-
-        .password{
-            /*word break breaks the word so that it doesnt overflow out of the box*/
-            background-color:#f0f0f0;
-            font-weight: auto;
-            text-align: center;
-            word-break: break-all;
-            /* margin-bottom: 10px;
-            margin-right: 15px;
-            margin-left: 15px; */
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-            border-radius: 5px;
-            padding-top: 15px;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-bottom: 15px;
-        }
-        
-        #pass-div{
-            margin-right: 15px;
-            margin-left: 15px;
-        }
-
-        @keyframes fadeIn{
-            from{
-                opacity: 0.3;
             }
-            to{
-                opacity: 1;
-            }
-        }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-    </style>
-</body>
+        <style>
+            body{
+                color: black;
+                background-color: rgb(228, 228, 228);
+                text-align: center;
+                /* animation-name: fadeIn;
+                animation-duration: 2s; */
+            }
+
+            #length{
+                text-align: center;
+            }
+
+            ::-webkit-scrollbar {
+            width: 5px;
+            }
+
+            ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            }
+
+            ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 50px;
+            }
+            
+            ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+            }
+
+            #lenDiv{
+                text-align: center;
+                margin-left: 15px;
+                margin-right: 30px;
+                margin-top: 20px;
+            }
+
+            #generateDiv{
+                user-select: none;
+                text-align: center;
+            }
+
+            .password{
+                /*word break breaks the word so that it doesnt overflow out of the box*/
+                background-color:#f0f0f0;
+                font-weight: auto;
+                text-align: center;
+                word-break: break-all;
+                /* margin-bottom: 10px;
+                margin-right: 15px;
+                margin-left: 15px; */
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+                border-radius: 5px;
+                padding-top: 15px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 15px;
+            }
+            
+            #pass-div{
+                margin-right: 15px;
+                margin-left: 15px;
+            }
+
+            @keyframes fadeIn{
+                from{
+                    opacity: 0.3;
+                }
+                to{
+                    opacity: 1;
+                }
+            }
+
+        </style>
+    </body>
 </html>
